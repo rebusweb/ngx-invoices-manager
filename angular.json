@@ -118,5 +118,14 @@
       }
     }
   },
-  "defaultProject": "ngx-invoices-manager"
+  "defaultProject": "ngx-invoices-manager",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "styleext": "sass"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  }
 }
