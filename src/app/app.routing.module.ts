@@ -16,6 +16,16 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
+    path: 'invoices',
+    loadChildren: './invoices/invoices.module#InvoicesModule',
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'contacts',
+    loadChildren: './contacts/contacts.module#ContactsModule',
+    canActivate: [ AuthGuard ]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

@@ -2,17 +2,11 @@
   <div class="row">
     <div class="col-sm">
       <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="workspace">Workspace</a>
+        <li class="nav-item" *ngFor="let item of navLinks">
+          <a class="nav-link" [class.active]="item.active" [routerLink]="item.url">{{ item.name }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="invoices">Invoices</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="contacts">Contacts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
+          <a href="#" class="nav-link" (click)="logout($event)">Logout</a>
         </li>
       </ul>
     </div>
