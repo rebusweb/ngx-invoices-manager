@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let item of navLinks">
+      <ul class="nav nav-pills">
+        <li class="nav-item" *ngFor="let item of links">
           <a class="nav-link" [class.active]="item.active" [routerLink]="item.url">{{ item.name }}</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="logoutLink">
           <a href="#" class="nav-link" (click)="logout($event)">Logout</a>
         </li>
       </ul>

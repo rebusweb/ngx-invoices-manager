@@ -1,8 +1,11 @@
-<app-header-logo></app-header-logo>
-<app-navigation></app-navigation>
+<app-head></app-head>
+
+<app-navigation [links]="navigation"></app-navigation>
 
 <div class="container">
   <div class="row">
-    <div class="col-sm">Invoices</div>
+    <div class="col-sm">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
