@@ -9,7 +9,9 @@ import { of, Observable } from 'rxjs';
 export class AuthService {
   user: User = null;
 
-  constructor() { }
+  constructor() {
+    this.user = this.getFromStorage();
+  }
 
   get loggedIn(): boolean {
     return !!this.user;
@@ -23,10 +25,19 @@ export class AuthService {
       email: 'test@test.pl',
       name: 'test',
     };
+    this.setInStorage();
     return of(this.user);
   }
 
   logout(): void {
     this.user = null;
+  }
+
+  setInStorage(): void {
+    sessionStorage.setItem('user', JSON.stringify(this.user));
+  }
+
+  getFromStorage(): User {
+    return sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : null;
   }
 }
