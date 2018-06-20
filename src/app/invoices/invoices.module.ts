@@ -6,12 +6,16 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
 import { SharedModule } from '../shared/shared.module';
 import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
 import { InvoiceListComponent } from './components/invoice-list/invoice-list.component';
+import { AppMaterialModule } from '../app.material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     InvoicesRoutingModule,
     SharedModule,
+    AppMaterialModule,
+    ReactiveFormsModule
   ],
   declarations: [
     InvoicesComponent,

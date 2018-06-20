@@ -1,6 +1,61 @@
-<p>
-  invoice-form works!
-</p>
-<form novalidate>
-  <input>
+<h5>Add new invoice</h5>
+<form novalidate (ngSubmit)="submit(invoice)" [formGroup]="invoice">
+  <div formGroupName="supplier">
+    <h6>Supplier</h6>
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="street" placeholder="Street">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="postCode" placeholder="Post Code">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="city" placeholder="City">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="nip" placeholder="NIP">
+    </mat-form-field>
+  </div>
+  <div formGroupName="buyer">
+    <h6>Buyer</h6>
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="street" placeholder="Street">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="postCode" placeholder="Post Code">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="city" placeholder="City">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="nip" placeholder="NIP">
+    </mat-form-field>
+  </div>
+  <div formGroupName="products">
+    <h6>Products</h6>
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="count" placeholder="Count">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="price" placeholder="Price">
+    </mat-form-field>
+  </div>
+  <div>
+    <h6>Payment</h6>
+    <mat-form-field>
+      <input matInput type="text" formControlName="paymentType" placeholder="Payment type">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="paymentTime" placeholder="Payment time">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button>Submit</button>
 </form>
