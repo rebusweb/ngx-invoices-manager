@@ -15,6 +15,8 @@ export class InvoiceFormComponent implements OnInit {
 
   ngOnInit() {
     this.invoiceForm = this.fb.group({
+      number: ['', Validators.required],
+      date: ['', Validators.required],
       supplier: this.fb.group({
         name: ['', Validators.required],
         street: ['', Validators.required],

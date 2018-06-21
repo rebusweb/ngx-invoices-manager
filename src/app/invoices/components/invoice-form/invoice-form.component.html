@@ -1,6 +1,17 @@
 <h5>Add new invoice</h5>
-<form novalidate (ngSubmit)="submit(invoiceForm)" [formGroup]="invoiceForm">
-  <div formGroupName="supplier">
+<form novalidate (ngSubmit)="submit(invoiceForm)" [formGroup]="invoiceForm" class="invoice-form">
+  <div class="invoice-form__group invoice-form__date">
+    <h6>Date &amp; number</h6>
+    <mat-form-field>
+      <input matInput type="text" formControlName="number" placeholder="Invoice number">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="datePicker" formControlName="date" placeholder="Invoice date">
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div formGroupName="supplier" class="invoice-form__group invoice-form__supplier">
     <h6>Supplier</h6>
     <mat-form-field>
       <input matInput type="text" formControlName="name" placeholder="Name">
@@ -18,7 +29,7 @@
       <input matInput type="text" formControlName="nip" placeholder="NIP">
     </mat-form-field>
   </div>
-  <div formGroupName="buyer">
+  <div formGroupName="buyer" class="invoice-form__group invoice-form__buyer">
     <h6>Buyer</h6>
     <mat-form-field>
       <input matInput type="text" formControlName="name" placeholder="Name">
@@ -36,7 +47,7 @@
       <input matInput type="text" formControlName="nip" placeholder="NIP">
     </mat-form-field>
   </div>
-  <div formArrayName="products">
+  <div formArrayName="products" class="invoice-form__group invoice-form__products">
     <h6>Products</h6>
     <div *ngFor="let product of invoiceForm.get('products').controls; let i = index;" [formGroupName]="i">
       <mat-form-field>
@@ -51,14 +62,16 @@
     </div>
     <button mat-raised-button (click)="addProduct()" type="button">Add Product</button>
   </div>
-  <div>
+  <div class="invoice-form__group invoice-form__payment">
     <h6>Payment</h6>
     <mat-form-field>
       <input matInput type="text" formControlName="paymentType" placeholder="Payment type">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" formControlName="paymentTime" placeholder="Payment time">
+      <input matInput [matDatepicker]="paymentTimePicker" formControlName="paymentTime" placeholder="Payment Time">
+      <mat-datepicker-toggle matSuffix [for]="paymentTimePicker"></mat-datepicker-toggle>
+      <mat-datepicker #paymentTimePicker></mat-datepicker>
     </mat-form-field>
   </div>
-  <button mat-raised-button>Submit</button>
+  <button mat-raised-button color="primary">Submit</button>
 </form>
