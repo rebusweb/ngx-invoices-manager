@@ -31,6 +31,7 @@ export class AuthService {
 
   logout(): void {
     this.user = null;
+    this.setInStorage();
   }
 
   setInStorage(): void {
