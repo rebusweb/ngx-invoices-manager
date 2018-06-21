@@ -1,5 +1,5 @@
 <h5>Add new invoice</h5>
-<form novalidate (ngSubmit)="submit(invoice)" [formGroup]="invoice">
+<form novalidate (ngSubmit)="submit(invoiceForm)" [formGroup]="invoiceForm">
   <div formGroupName="supplier">
     <h6>Supplier</h6>
     <mat-form-field>
@@ -36,17 +36,20 @@
       <input matInput type="text" formControlName="nip" placeholder="NIP">
     </mat-form-field>
   </div>
-  <div formGroupName="products">
+  <div formArrayName="products">
     <h6>Products</h6>
-    <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="count" placeholder="Count">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="price" placeholder="Price">
-    </mat-form-field>
+    <div *ngFor="let product of invoiceForm.get('products').controls; let i = index;" [formGroupName]="i">
+      <mat-form-field>
+        <input matInput type="text" formControlName="name" placeholder="Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" formControlName="count" placeholder="Count">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" formControlName="price" placeholder="Price">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button (click)="addProduct()" type="button">Add Product</button>
   </div>
   <div>
     <h6>Payment</h6>
