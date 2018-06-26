@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { AuthModule } from './auth/auth.module';
 import { AppMaterialModule } from './app.material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AppMaterialModule } from './app.material.module';
     AppRoutingModule,
     AppMaterialModule,
     AuthModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
