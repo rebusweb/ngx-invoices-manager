@@ -6,25 +6,32 @@ import {
   MatFormFieldModule,
   MatCardModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatIconModule,
+  MatListModule,
+  MatTableModule,
+  MatTooltipModule
 } from '@angular/material';
+
+const modulesList = [
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatIconModule,
+  MatListModule,
+  MatTableModule,
+  MatTooltipModule,
+];
 
 @NgModule({
   imports: [
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    modulesList,
   ],
   exports: [
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    modulesList,
   ],
 })
 export class AppMaterialModule { }

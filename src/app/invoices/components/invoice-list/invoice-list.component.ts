@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InvoiceService } from '../../services/invoice.service';
+import { Invoice } from '../../../shared/models/invoice';
 
 @Component({
   selector: 'app-invoice-list',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invoice-list.component.sass']
 })
 export class InvoiceListComponent implements OnInit {
+  invoices: Invoice[];
+  displayedColumns = ['date', 'number', 'to', 'from', 'operations'];
 
-  constructor() { }
+  constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit() {
+    this.invoiceService.fetch().subscribe(
+      (value) => {
+        this.invoices = value;
+      }
+    );
   }
 
 }

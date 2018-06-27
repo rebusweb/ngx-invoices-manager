@@ -22,9 +22,7 @@ export class LocalStorageServerService implements Server {
     return this.get(url)
       .pipe(
         switchMap((data) => {
-          console.log('Existing: ', data);
           const dataStore = Array.isArray(data) ? [ ...data, value ] : [ value ];
-          console.log('Store: ', dataStore);
           return this.localStorage.setItem(this.prefix + url, dataStore);
         })
       );
@@ -32,14 +30,14 @@ export class LocalStorageServerService implements Server {
 
   post(url: string, value: any): Observable<any> {
     console.log('LS post', url, value);
-    return this.put(this.prefix + url, value);
+    return this.put(url, value);
   }
 
   patch(url: string, value: any): Observable<any> {
     console.log('LS patch', url, value);
     return this.localStorage.setItem(this.prefix + url,
       {
-        ...this.get(this.prefix + url),
+        ...this.get(url),
         value
       });
   }

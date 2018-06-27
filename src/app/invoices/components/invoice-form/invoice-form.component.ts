@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Invoice } from '../../../shared/models/invoice';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ServerService } from '../../../core/services/server.service';
-import { LocalStorage } from '@ngx-pwa/local-storage';
+import { InvoiceService } from '../../services/invoice.service';
 
 @Component({
   selector: 'app-invoice-form',
@@ -13,7 +12,7 @@ export class InvoiceFormComponent implements OnInit {
 
   invoiceForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private server: ServerService, private localStorage: LocalStorage) { }
+  constructor(private fb: FormBuilder, private invoiceService: InvoiceService) { }
 
   ngOnInit() {
     this.invoiceForm = this.fb.group({
@@ -56,10 +55,17 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   submit({ value, valid }: { value: Invoice, valid: boolean }): void {
-    console.log(value, valid);
-    this.server.post('invoices', value).subscribe(
-      (response) => console.log('OK', response),
-      (error) => console.log('ERROR', error),
+    if (!valid) {
+      return;
+    }
+    this.invoiceService.add(value).subscribe(
+      (response) => {
+        console.log('OK', response);
+        this.invoiceForm.reset();
+      },
+      (error) => {
+        console.log('ERROR', error);
+      },
     );
   }
 
