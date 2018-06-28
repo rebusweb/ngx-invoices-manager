@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Invoice } from '../../../shared/models/invoice';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
+import { CustomValidators } from '../../../shared/validators/custom-validators';
+import { PAYMENT_TYPES } from 'src/app/shared/config/payment-types';
 
 @Component({
   selector: 'app-invoice-form',
@@ -11,30 +13,31 @@ import { InvoiceService } from '../../services/invoice.service';
 export class InvoiceFormComponent implements OnInit {
 
   invoiceForm: FormGroup;
+  paymentTypes = PAYMENT_TYPES;
 
   constructor(private fb: FormBuilder, private invoiceService: InvoiceService) { }
 
   ngOnInit() {
     this.invoiceForm = this.fb.group({
-      number: ['', Validators.required],
-      date: ['', Validators.required],
+      number: ['', [ Validators.required ]],
+      date: ['', [ Validators.required ]],
       supplier: this.fb.group({
-        name: ['', Validators.required],
-        street: ['', Validators.required],
-        postCode: ['', Validators.required],
-        city: ['', Validators.required],
-        nip: ['', Validators.required],
+        name: ['', [ Validators.required ]],
+        street: ['', [ Validators.required ]],
+        postCode: ['', [ Validators.required, CustomValidators.postCode ]],
+        city: ['', [ Validators.required ]],
+        nip: ['', [ Validators.required, CustomValidators.nipNumber ]],
       }),
       buyer: this.fb.group({
-        name: ['', Validators.required],
-        street: ['', Validators.required],
-        postCode: ['', Validators.required],
-        city: ['', Validators.required],
-        nip: ['', Validators.required],
+        name: ['', [ Validators.required ]],
+        street: ['', [ Validators.required ]],
+        postCode: ['', [ Validators.required, CustomValidators.postCode ]],
+        city: ['', [ Validators.required ]],
+        nip: ['', [ Validators.required, CustomValidators.nipNumber ]],
       }),
       products: this.fb.array([ this.createProduct() ]),
-      paymentType: ['', Validators.required],
-      paymentTime: ['', Validators.required],
+      paymentType: ['', [ Validators.required ]],
+      paymentTime: ['', [ Validators.required ]],
     });
   }
 
@@ -44,9 +47,9 @@ export class InvoiceFormComponent implements OnInit {
 
   createProduct(): FormGroup {
     return this.fb.group({
-      name: ['', Validators.required],
-      count: ['', Validators.required],
-      price: ['', Validators.required],
+      name: ['', [ Validators.required ]],
+      count: ['', [ Validators.required, CustomValidators.integer ]],
+      price: ['', [ Validators.required, CustomValidators.number ]],
     });
   }
 

@@ -11,41 +11,47 @@
       <mat-datepicker #datePicker></mat-datepicker>
     </mat-form-field>
   </div>
-  <div formGroupName="supplier" class="invoice-form__group invoice-form__supplier">
-    <h6>Supplier</h6>
-    <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="street" placeholder="Street">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="postCode" placeholder="Post Code">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="city" placeholder="City">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="nip" placeholder="NIP">
-    </mat-form-field>
-  </div>
-  <div formGroupName="buyer" class="invoice-form__group invoice-form__buyer">
-    <h6>Buyer</h6>
-    <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="street" placeholder="Street">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="postCode" placeholder="Post Code">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="city" placeholder="City">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" formControlName="nip" placeholder="NIP">
-    </mat-form-field>
+  <div class="row">
+    <div class="col-sm-6">
+      <div formGroupName="supplier" class="invoice-form__group">
+        <h6>Supplier</h6>
+        <mat-form-field>
+          <input matInput type="text" formControlName="name" placeholder="Name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="street" placeholder="Street">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="postCode" placeholder="Post Code">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="city" placeholder="City">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="nip" placeholder="NIP">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div formGroupName="buyer" class="invoice-form__group">
+        <h6>Buyer</h6>
+        <mat-form-field>
+          <input matInput type="text" formControlName="name" placeholder="Name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="street" placeholder="Street">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="postCode" placeholder="Post Code">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="city" placeholder="City">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" formControlName="nip" placeholder="NIP">
+        </mat-form-field>
+      </div>
+    </div>
   </div>
   <div formArrayName="products" class="invoice-form__group invoice-form__products">
     <h6>Products</h6>
@@ -60,12 +66,18 @@
         <input matInput type="text" formControlName="price" placeholder="Price">
       </mat-form-field>
     </div>
-    <button mat-raised-button (click)="addProduct()" type="button"><mat-icon>add</mat-icon> Add another product</button>
+    <button mat-raised-button (click)="addProduct()" type="button">
+      <mat-icon>add</mat-icon> Add another product
+    </button>
   </div>
   <div class="invoice-form__group invoice-form__payment">
     <h6>Payment</h6>
     <mat-form-field>
-      <input matInput type="text" formControlName="paymentType" placeholder="Payment type">
+      <mat-select placeholder="Payment type">
+        <mat-option *ngFor="let type of paymentTypes" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <input matInput [matDatepicker]="paymentTimePicker" formControlName="paymentTime" placeholder="Payment Time">
