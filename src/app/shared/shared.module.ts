@@ -4,21 +4,26 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { RouterModule } from '@angular/router';
 import { HeaderLogoComponent } from './components/header-logo/header-logo.component';
 import { HeadComponent } from './components/head/head.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { AppMaterialModule } from '../app.material.module';
+
+const components = [
+  NavigationComponent,
+  HeaderLogoComponent,
+  HeadComponent,
+  ConfirmDialogComponent,
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    AppMaterialModule,
   ],
-  declarations: [
-    NavigationComponent,
-    HeaderLogoComponent,
-    HeadComponent,
-  ],
-  exports: [
-    NavigationComponent,
-    HeaderLogoComponent,
-    HeadComponent,
-  ],
+  declarations: components,
+  exports: components,
+  entryComponents: [
+    ConfirmDialogComponent
+  ]
 })
 export class SharedModule { }
