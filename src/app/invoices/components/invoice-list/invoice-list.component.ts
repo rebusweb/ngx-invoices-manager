@@ -14,6 +14,18 @@ export class InvoiceListComponent implements OnInit {
   constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit() {
+    this.getItems();
+  }
+
+  delete(index: number): void {
+    this.invoiceService.remove(index).subscribe(
+      (result) => {
+        this.getItems();
+      }
+    );
+  }
+
+  getItems() {
     this.invoiceService.fetch().subscribe(
       (value) => {
         this.invoices = value;

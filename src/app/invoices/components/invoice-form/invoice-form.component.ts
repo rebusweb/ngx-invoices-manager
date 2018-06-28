@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./invoice-form.component.sass']
 })
 export class InvoiceFormComponent implements OnInit {
-
+  title = 'Add new invoice';
   invoiceForm: FormGroup;
   paymentTypes = PAYMENT_TYPES;
   index: number;
@@ -59,6 +59,7 @@ export class InvoiceFormComponent implements OnInit {
               this.products.push(this.createProduct());
             }
             this.invoiceForm.setValue(invoice);
+            this.title = 'Edit invoice';
           }
         }
       );

@@ -1,6 +1,6 @@
 <h1 class="page-title">Invoices</h1>
 
-<div *ngIf="invoices; else invoiceEmpty" class="mat-elevation-z2">
+<div *ngIf="invoices && invoices.length; else invoiceEmpty" class="mat-elevation-z2">
   <table mat-table [dataSource]="invoices">
     <ng-container matColumnDef="number">
       <th mat-header-cell *matHeaderCellDef> Number </th>
@@ -32,7 +32,7 @@
           <mat-icon matTooltip="Duplicate">add_to_photos</mat-icon>
         </button>
         <button type="button" class="btn">
-          <mat-icon matTooltip="Delete">delete</mat-icon>
+          <mat-icon matTooltip="Delete" (click)="delete(i)">delete</mat-icon>
         </button>
       </td>
     </ng-container>

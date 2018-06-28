@@ -64,7 +64,18 @@ export class LocalStorageServerService implements Server {
 
   delete(url: string): Observable<any> {
     console.log('LS delete', url);
-    return this.localStorage.removeItem(this.prefix + url);
+    const { url: urlPart, index } = this.getIndex(url);
+    if (!index) {
+      throwError('No index provided!');
+    }
+    console.log({urlPart}, {index});
+    return this.get(urlPart)
+      .pipe(
+        switchMap((data) => {
+          data.splice(index, 1);
+          return this.localStorage.setItem(this.prefix + urlPart, data);
+        })
+      );
   }
 
   getIndex(url: string): { url: string, index: string } {
