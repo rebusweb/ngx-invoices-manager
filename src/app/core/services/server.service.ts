@@ -34,7 +34,7 @@ export class ServerService implements Server {
   }
 
   patch(url: string, value: any): Observable<any> {
-    return this.serverService.patch(url);
+    return this.serverService.patch(url, value);
   }
 
   delete(url: string): Observable<any> {

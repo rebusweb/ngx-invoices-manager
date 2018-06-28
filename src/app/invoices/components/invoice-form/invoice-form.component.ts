@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
 import { CustomValidators } from '../../../shared/validators/custom-validators';
 import { PAYMENT_TYPES } from 'src/app/shared/config/payment-types';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoice-form',
@@ -14,30 +15,53 @@ export class InvoiceFormComponent implements OnInit {
 
   invoiceForm: FormGroup;
   paymentTypes = PAYMENT_TYPES;
+  index: number;
 
-  constructor(private fb: FormBuilder, private invoiceService: InvoiceService) { }
+  constructor(private fb: FormBuilder,
+    private invoiceService: InvoiceService,
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
 
   ngOnInit() {
     this.invoiceForm = this.fb.group({
-      number: ['', [ Validators.required ]],
-      date: ['', [ Validators.required ]],
+      number: ['', [Validators.required]],
+      date: ['', [Validators.required]],
       supplier: this.fb.group({
-        name: ['', [ Validators.required ]],
-        street: ['', [ Validators.required ]],
-        postCode: ['', [ Validators.required, CustomValidators.postCode ]],
-        city: ['', [ Validators.required ]],
-        nip: ['', [ Validators.required, CustomValidators.nipNumber ]],
+        name: ['', [Validators.required]],
+        street: ['', [Validators.required]],
+        postCode: ['', [Validators.required, CustomValidators.postCode]],
+        city: ['', [Validators.required]],
+        nip: ['', [Validators.required, CustomValidators.nipNumber]],
       }),
       buyer: this.fb.group({
-        name: ['', [ Validators.required ]],
-        street: ['', [ Validators.required ]],
-        postCode: ['', [ Validators.required, CustomValidators.postCode ]],
-        city: ['', [ Validators.required ]],
-        nip: ['', [ Validators.required, CustomValidators.nipNumber ]],
+        name: ['', [Validators.required]],
+        street: ['', [Validators.required]],
+        postCode: ['', [Validators.required, CustomValidators.postCode]],
+        city: ['', [Validators.required]],
+        nip: ['', [Validators.required, CustomValidators.nipNumber]],
       }),
-      products: this.fb.array([ this.createProduct() ]),
-      paymentType: ['', [ Validators.required ]],
-      paymentTime: ['', [ Validators.required ]],
+      products: this.fb.array([this.createProduct()]),
+      paymentType: ['', [Validators.required]],
+      paymentTime: ['', [Validators.required]],
+    });
+
+    this.route.params.subscribe(params => {
+      if (!params.index) {
+        return;
+      }
+      this.index = params.index;
+      this.invoiceService.fetch(this.index).subscribe(
+        (value) => {
+          if (value && value[0]) {
+            const invoice = value[0];
+            for (let i = 1; i <= invoice.products.length - 1; i++) {
+              this.products.push(this.createProduct());
+            }
+            this.invoiceForm.setValue(invoice);
+          }
+        }
+      );
     });
   }
 
@@ -47,9 +71,9 @@ export class InvoiceFormComponent implements OnInit {
 
   createProduct(): FormGroup {
     return this.fb.group({
-      name: ['', [ Validators.required ]],
-      count: ['', [ Validators.required, CustomValidators.integer ]],
-      price: ['', [ Validators.required, CustomValidators.number ]],
+      name: ['', [Validators.required]],
+      count: ['', [Validators.required, CustomValidators.integer]],
+      price: ['', [Validators.required, CustomValidators.number]],
     });
   }
 
@@ -58,18 +82,26 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   submit({ value, valid }: { value: Invoice, valid: boolean }): void {
+    console.log(valid, value);
     if (!valid) {
       return;
     }
-    this.invoiceService.add(value).subscribe(
-      (response) => {
-        console.log('OK', response);
-        this.invoiceForm.reset();
-      },
-      (error) => {
-        console.log('ERROR', error);
-      },
-    );
+    if (!this.index) {
+      this.invoiceService.add(value).subscribe(
+        (response) => {
+          console.log('OK', response);
+          this.invoiceForm.reset();
+        }
+      );
+    } else {
+      this.invoiceService.edit(this.index, value).subscribe(
+        (response) => {
+          console.log('OK', response);
+          this.invoiceForm.reset();
+          this.router.navigate(['/invoices/list']);
+        }
+      );
+    }
   }
 
 }

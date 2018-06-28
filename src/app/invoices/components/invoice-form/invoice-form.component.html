@@ -73,7 +73,7 @@
   <div class="invoice-form__group invoice-form__payment">
     <h6>Payment</h6>
     <mat-form-field>
-      <mat-select placeholder="Payment type">
+      <mat-select formControlName="paymentType" placeholder="Payment type">
         <mat-option *ngFor="let type of paymentTypes" [value]="type">
           {{type}}
         </mat-option>
