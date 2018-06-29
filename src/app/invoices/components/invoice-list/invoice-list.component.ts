@@ -69,7 +69,7 @@ export class InvoiceListComponent implements OnInit {
   delete(index: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'asdaqwe') {
+      if (result) {
         this.invoiceService.remove(index).subscribe(
           (data) => {
             this.getItems();
