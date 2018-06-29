@@ -3,7 +3,8 @@ import { InvoiceService } from '../../services/invoice.service';
 import { Invoice } from '../../../shared/models/invoice';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
-import { TableConfig } from '../../../shared/models/table-config';
+import { TableConfig, TableOperationEmit } from '../../../shared/models/table-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoice-list',
@@ -13,7 +14,11 @@ import { TableConfig } from '../../../shared/models/table-config';
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[];
   displayedColumns = ['date', 'number', 'to', 'from', 'operations'];
-
+  operations = {
+    edit: 'edit',
+    copy: 'copy',
+    delete: 'delete',
+  };
   tableConfig: TableConfig = {
     columns: [
       {
@@ -34,14 +39,28 @@ export class InvoiceListComponent implements OnInit {
         prop: 'supplier.name',
       },
     ],
-    operations: {
-      edit: true,
-      copy: true,
-      delete: true,
-    }
+    operations: [
+      {
+        id: this.operations.edit,
+        name: 'Edit',
+        icon: 'edit'
+      },
+      {
+        id: this.operations.copy,
+        name: 'Copy',
+        icon: 'add_to_photos'
+      },
+      {
+        id: this.operations.delete,
+        name: 'Delete',
+        icon: 'delete'
+      },
+    ]
   };
 
-  constructor(private invoiceService: InvoiceService, public dialog: MatDialog) { }
+  constructor(private invoiceService: InvoiceService,
+    public dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit() {
     this.getItems();
@@ -50,7 +69,6 @@ export class InvoiceListComponent implements OnInit {
   delete(index: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log({result});
       if (result === 'asdaqwe') {
         this.invoiceService.remove(index).subscribe(
           (data) => {
@@ -67,6 +85,19 @@ export class InvoiceListComponent implements OnInit {
         this.invoices = value;
       }
     );
+  }
+
+  onOperation({ operation, index }: TableOperationEmit) {
+    switch (operation) {
+      case this.operations.edit:
+        this.router.navigate([`/invoices/form/${index}`]);
+        break;
+      case this.operations.copy:
+        break;
+      case this.operations.delete:
+        this.delete(index);
+        break;
+    }
   }
 
 }

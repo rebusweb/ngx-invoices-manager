@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TableConfig } from '../../models/table-config';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { TableConfig, TableOperationEmit } from '../../models/table-config';
 
 @Component({
   selector: 'app-table',
@@ -9,6 +9,7 @@ import { TableConfig } from '../../models/table-config';
 export class TableComponent implements OnInit {
   @Input() data: any;
   @Input() config: TableConfig;
+  @Output() operation: EventEmitter<TableOperationEmit> = new EventEmitter<TableOperationEmit>();
   displayedColumns: string[];
 
   constructor() { }
@@ -20,7 +21,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  getDataValue(data: any, prop: string) {
+  getDataValue(data: any, prop: string): any {
     if (prop.includes('.')) {
       const propArray = prop.split('.');
       let value = { ...data };
@@ -30,6 +31,10 @@ export class TableComponent implements OnInit {
       return value;
     }
     return data[prop];
+  }
+
+  onOperation(operation: string, index: number): void {
+    this.operation.emit({ operation, index });
   }
 
 }
