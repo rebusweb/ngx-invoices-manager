@@ -3,6 +3,7 @@ import { InvoiceService } from '../../services/invoice.service';
 import { Invoice } from '../../../shared/models/invoice';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { TableConfig } from '../../../shared/models/table-config';
 
 @Component({
   selector: 'app-invoice-list',
@@ -12,6 +13,33 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[];
   displayedColumns = ['date', 'number', 'to', 'from', 'operations'];
+
+  tableConfig: TableConfig = {
+    columns: [
+      {
+        name: 'Date',
+        prop: 'date',
+        format: 'date',
+      },
+      {
+        name: 'Number',
+        prop: 'number',
+      },
+      {
+        name: 'To',
+        prop: 'buyer.name',
+      },
+      {
+        name: 'From',
+        prop: 'supplier.name',
+      },
+    ],
+    operations: {
+      edit: true,
+      copy: true,
+      delete: true,
+    }
+  };
 
   constructor(private invoiceService: InvoiceService, public dialog: MatDialog) { }
 
