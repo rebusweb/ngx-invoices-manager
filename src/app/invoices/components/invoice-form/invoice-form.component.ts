@@ -16,6 +16,7 @@ export class InvoiceFormComponent implements OnInit {
   invoiceForm: FormGroup;
   paymentTypes = PAYMENT_TYPES;
   index: number;
+  copy = false;
 
   constructor(private fb: FormBuilder,
     private invoiceService: InvoiceService,
@@ -47,22 +48,22 @@ export class InvoiceFormComponent implements OnInit {
     });
 
     this.route.params.subscribe(params => {
-      if (!params.index) {
-        return;
-      }
-      this.index = params.index;
-      this.invoiceService.fetch(this.index).subscribe(
-        (value) => {
-          if (value && value[0]) {
-            const invoice = value[0];
-            for (let i = 1; i <= invoice.products.length - 1; i++) {
-              this.products.push(this.createProduct());
+      if (params.index) {
+        this.index = params.index;
+        this.invoiceService.fetch(this.index).subscribe(
+          (value) => {
+            if (value && value[0]) {
+              const invoice = value[0];
+              for (let i = 1; i <= invoice.products.length - 1; i++) {
+                this.products.push(this.createProduct());
+              }
+              this.invoiceForm.setValue(invoice);
+              this.title = 'Edit invoice';
             }
-            this.invoiceForm.setValue(invoice);
-            this.title = 'Edit invoice';
           }
-        }
-      );
+        );
+      }
+      this.copy = !!params.copy;
     });
   }
 
@@ -87,18 +88,17 @@ export class InvoiceFormComponent implements OnInit {
     if (!valid) {
       return;
     }
-    if (!this.index) {
+    if (!this.index || this.copy) {
       this.invoiceService.add(value).subscribe(
         (response) => {
           console.log('OK', response);
-          this.invoiceForm.reset();
+          this.router.navigate(['/invoices/list']);
         }
       );
     } else {
       this.invoiceService.edit(this.index, value).subscribe(
         (response) => {
           console.log('OK', response);
-          this.invoiceForm.reset();
           this.router.navigate(['/invoices/list']);
         }
       );

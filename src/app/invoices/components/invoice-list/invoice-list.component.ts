@@ -79,7 +79,15 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
-  getItems() {
+  edit(index: number) {
+    this.router.navigate([`/invoices/form/${index}`]);
+  }
+
+  copy(index: number) {
+    this.router.navigate([`/invoices/form/${index}/copy`]);
+  }
+
+  getItems(): void {
     this.invoiceService.fetch().subscribe(
       (value) => {
         this.invoices = value;
@@ -87,12 +95,13 @@ export class InvoiceListComponent implements OnInit {
     );
   }
 
-  onOperation({ operation, index }: TableOperationEmit) {
+  onOperation({ operation, index }: TableOperationEmit): void {
     switch (operation) {
       case this.operations.edit:
-        this.router.navigate([`/invoices/form/${index}`]);
+        this.edit(index);
         break;
       case this.operations.copy:
+        this.copy(index);
         break;
       case this.operations.delete:
         this.delete(index);

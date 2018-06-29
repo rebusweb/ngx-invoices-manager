@@ -24,6 +24,10 @@ const routes: Routes = [
       {
         path: 'form/:index',
         component: InvoiceFormComponent
+      },
+      {
+        path: 'form/:index/:copy',
+        component: InvoiceFormComponent
       }
     ]
   },
