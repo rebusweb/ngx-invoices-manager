@@ -1,0 +1,29 @@
+<h1 class="page-title">{{ title }}</h1>
+<form novalidate (ngSubmit)="submit(contactForm)" [formGroup]="contactForm" class="contact-form">
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input matInput type="text" formControlName="name" placeholder="Name">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input matInput type="text" formControlName="street" placeholder="Street">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input matInput type="text" formControlName="postCode" placeholder="Post Code">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input matInput type="text" formControlName="city" placeholder="City">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input matInput type="text" formControlName="nip" placeholder="NIP">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary">Submit</button>
+</form>

@@ -1,0 +1,12 @@
+<h1 class="page-title">Contacts</h1>
+
+<div *ngIf="contacts && contacts.length; else listEmpty" class="mat-elevation-z2">
+  <app-table [data]="contacts" [config]="tableConfig" (operation)="onOperation($event)"></app-table>
+</div>
+
+<ng-template #listEmpty>
+  <p>
+    No contacts at the moment,
+    <a routerLink="/contacts/form">add one!</a>
+  </p>
+</ng-template>
