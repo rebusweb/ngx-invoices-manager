@@ -13,42 +13,26 @@
   </div>
   <div class="row">
     <div class="col-sm-6">
-      <div formGroupName="supplier" class="invoice-form__group">
+      <div class="invoice-form__group">
         <h6>Supplier</h6>
         <mat-form-field>
-          <input matInput type="text" formControlName="name" placeholder="Name">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="street" placeholder="Street">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="postCode" placeholder="Post Code">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="city" placeholder="City">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="nip" placeholder="NIP">
+          <mat-select formControlName="supplier" placeholder="Supplier">
+            <mat-option *ngFor="let contact of contacts; let i = index" [value]="i">
+              {{contact.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>
     <div class="col-sm-6">
-      <div formGroupName="buyer" class="invoice-form__group">
+      <div class="invoice-form__group">
         <h6>Buyer</h6>
         <mat-form-field>
-          <input matInput type="text" formControlName="name" placeholder="Name">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="street" placeholder="Street">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="postCode" placeholder="Post Code">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="city" placeholder="City">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="nip" placeholder="NIP">
+          <mat-select formControlName="buyer" placeholder="Buyer">
+            <mat-option *ngFor="let contact of contacts; let i = index" [value]="i">
+              {{contact.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>

@@ -5,6 +5,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { TableConfig, TableOperationEmit } from '../../../shared/models/table-config';
 import { Router } from '@angular/router';
+import { Contact } from 'src/app/contacts/models/contact';
+import { ContactService } from 'src/app/contacts/services/contact.service';
 
 @Component({
   selector: 'app-invoice-list',
@@ -13,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[];
+  contacts: Contact[];
   displayedColumns = ['date', 'number', 'to', 'from', 'operations'];
   operations = {
     edit: 'edit',
@@ -32,11 +35,11 @@ export class InvoiceListComponent implements OnInit {
       },
       {
         name: 'To',
-        prop: 'buyer.name',
+        prop: 'buyerName',
       },
       {
         name: 'From',
-        prop: 'supplier.name',
+        prop: 'supplierName',
       },
     ],
     operations: [
@@ -60,9 +63,11 @@ export class InvoiceListComponent implements OnInit {
 
   constructor(private invoiceService: InvoiceService,
     public dialog: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    private contactService: ContactService) { }
 
   ngOnInit() {
+    this.getContacts();
     this.getItems();
   }
 
@@ -90,7 +95,19 @@ export class InvoiceListComponent implements OnInit {
   getItems(): void {
     this.invoiceService.fetch().subscribe(
       (value) => {
-        this.invoices = value;
+        this.invoices = value.map(invoice => {
+          invoice.supplierName = this.contacts[invoice.supplier].name;
+          invoice.buyerName = this.contacts[invoice.buyer].name;
+          return invoice;
+        });
+      }
+    );
+  }
+
+  getContacts(): void {
+    this.contactService.fetch().subscribe(
+      (value) => {
+        this.contacts = value;
       }
     );
   }

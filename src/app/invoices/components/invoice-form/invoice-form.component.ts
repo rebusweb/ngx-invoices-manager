@@ -5,6 +5,8 @@ import { InvoiceService } from '../../services/invoice.service';
 import { CustomValidators } from '../../../shared/validators/custom-validators';
 import { PAYMENT_TYPES } from 'src/app/shared/config/payment-types';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Contact } from 'src/app/contacts/models/contact';
+import { ContactService } from 'src/app/contacts/services/contact.service';
 
 @Component({
   selector: 'app-invoice-form',
@@ -17,31 +19,23 @@ export class InvoiceFormComponent implements OnInit {
   paymentTypes = PAYMENT_TYPES;
   index: number;
   copy = false;
+  contacts: Contact[];
 
   constructor(private fb: FormBuilder,
     private invoiceService: InvoiceService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private contactService: ContactService) {
   }
 
   ngOnInit() {
+    this.getContacts();
+
     this.invoiceForm = this.fb.group({
       number: ['', [Validators.required]],
       date: ['', [Validators.required]],
-      supplier: this.fb.group({
-        name: ['', [Validators.required]],
-        street: ['', [Validators.required]],
-        postCode: ['', [Validators.required, CustomValidators.postCode]],
-        city: ['', [Validators.required]],
-        nip: ['', [Validators.required, CustomValidators.nipNumber]],
-      }),
-      buyer: this.fb.group({
-        name: ['', [Validators.required]],
-        street: ['', [Validators.required]],
-        postCode: ['', [Validators.required, CustomValidators.postCode]],
-        city: ['', [Validators.required]],
-        nip: ['', [Validators.required, CustomValidators.nipNumber]],
-      }),
+      supplier: ['', [Validators.required]],
+      buyer: ['', [Validators.required]],
       products: this.fb.array([this.createProduct()]),
       paymentType: ['', [Validators.required]],
       paymentTime: ['', [Validators.required]],
@@ -81,6 +75,14 @@ export class InvoiceFormComponent implements OnInit {
 
   addProduct(): void {
     this.products.push(this.createProduct());
+  }
+
+  getContacts(): void {
+    this.contactService.fetch().subscribe(
+      (value) => {
+        this.contacts = value;
+      }
+    );
   }
 
   submit({ value, valid }: { value: Invoice, valid: boolean }): void {
