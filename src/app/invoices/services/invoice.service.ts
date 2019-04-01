@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServerService } from '../../core/services/server.service';
 import { DataService } from '../../shared/interfaces/data-service';
 import { Observable } from 'rxjs';
-import { Invoice } from '../../shared/models/invoice';
+import { Invoice } from '../models/invoice';
 
 @Injectable({
   providedIn: 'root'

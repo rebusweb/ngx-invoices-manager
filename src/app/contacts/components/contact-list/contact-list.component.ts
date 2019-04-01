@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
-import { Contact } from '../../../shared/models/contact';
+import { Contact } from '../../models/contact';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { TableConfig, TableOperationEmit } from '../../../shared/models/table-config';

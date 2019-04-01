@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact } from '../../../shared/models/contact';
+import { Contact } from '../../models/contact';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ContactService } from '../../services/contact.service';
 import { CustomValidators } from '../../../shared/validators/custom-validators';

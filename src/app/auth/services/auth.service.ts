@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../shared/models/user';
-import { UserLogin } from '../../shared/models/user-login';
+import { User } from '../../user/models/user';
+import { UserLogin } from '../../user/models/user-login';
 import { of, Observable } from 'rxjs';
 
 @Injectable({

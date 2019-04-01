@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
-import { Invoice } from '../../../shared/models/invoice';
+import { Invoice } from '../../models/invoice';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { TableConfig, TableOperationEmit } from '../../../shared/models/table-config';

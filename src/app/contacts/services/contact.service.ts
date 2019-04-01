@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServerService } from '../../core/services/server.service';
 import { DataService } from '../../shared/interfaces/data-service';
 import { Observable } from 'rxjs';
-import { Contact } from '../../shared/models/contact';
+import { Contact } from '../models/contact';
 
 @Injectable({
   providedIn: 'root'

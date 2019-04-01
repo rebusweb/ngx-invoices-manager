@@ -1,4 +1,4 @@
-import { Contact } from './contact';
+import { Contact } from '../../contacts/models/contact';
 import { Product } from './product';
 
 export interface Invoice {

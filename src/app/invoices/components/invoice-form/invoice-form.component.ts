@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Invoice } from '../../../shared/models/invoice';
+import { Invoice } from '../../models/invoice';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
 import { CustomValidators } from '../../../shared/validators/custom-validators';
