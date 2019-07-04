@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Contact } from '../../models/contact';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ContactService } from '../../services/contact.service';
@@ -11,6 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./contact-form.component.sass']
 })
 export class ContactFormComponent implements OnInit {
+  @Input() addSuccessCallback: any;
+  @Input() editSuccessCallback: any;
+  @Input() titleType: string = 'title';
   title = 'Add new contact';
   contactForm: FormGroup;
   index: number;
@@ -39,7 +42,7 @@ export class ContactFormComponent implements OnInit {
             if (value && value[0]) {
               const contact = value[0];
               this.contactForm.setValue(contact);
-              this.title = 'Edit contact';
+              this.title = `Edit contact: ${contact.name}`;
             }
           }
         );
@@ -53,18 +56,27 @@ export class ContactFormComponent implements OnInit {
     if (!valid) {
       return;
     }
+
     if (!this.index || this.copy) {
       this.contactService.add(value).subscribe(
         (response) => {
           console.log('OK', response);
-          this.router.navigate(['/contacts/list']);
+          if (this.addSuccessCallback) {
+            this.addSuccessCallback(value);
+          } else {
+            this.router.navigate(['/contacts/list']);
+          }
         }
       );
     } else {
       this.contactService.edit(this.index, value).subscribe(
         (response) => {
           console.log('OK', response);
-          this.router.navigate(['/contacts/list']);
+          if (this.editSuccessCallback) {
+            this.editSuccessCallback(value);
+          } else {
+            this.router.navigate(['/contacts/list']);
+          }
         }
       );
     }

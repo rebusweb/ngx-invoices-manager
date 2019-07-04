@@ -8,6 +8,7 @@ import { InvoiceFormComponent } from './components/invoice-form/invoice-form.com
 import { InvoiceListComponent } from './components/invoice-list/invoice-list.component';
 import { AppMaterialModule } from '../app.material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContactsModule } from '../contacts/contacts.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     InvoicesRoutingModule,
     SharedModule,
     AppMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ContactsModule
   ],
   declarations: [
     InvoicesComponent,

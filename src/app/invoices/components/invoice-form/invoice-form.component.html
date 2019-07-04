@@ -22,6 +22,9 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <button mat-raised-button (click)="showContactForm('supplier')" type="button">
+          <mat-icon>add</mat-icon> Add another contact
+        </button>
       </div>
     </div>
     <div class="col-sm-6">
@@ -34,6 +37,16 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <button mat-raised-button (click)="showContactForm('buyer')" type="button">
+          <mat-icon>add</mat-icon> Add another contact
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="contactFormVisible">
+    <div class="col-sm-12">
+      <div class="invoice-form__group">
+        <app-contact-form [addSuccessCallback]="onContactAdded" [titleType]="'subtitle'"></app-contact-form>
       </div>
     </div>
   </div>

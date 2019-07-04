@@ -21,6 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactsComponent,
     ContactListComponent,
     ContactFormComponent
+  ],
+  exports: [
+    ContactFormComponent
   ]
 })
 export class ContactsModule { }

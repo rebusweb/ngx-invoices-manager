@@ -20,6 +20,7 @@ export class InvoiceFormComponent implements OnInit {
   index: number;
   copy = false;
   contacts: Contact[];
+  contactFormVisible = false;
 
   constructor(private fb: FormBuilder,
     private invoiceService: InvoiceService,
@@ -30,6 +31,7 @@ export class InvoiceFormComponent implements OnInit {
 
   ngOnInit() {
     this.getContacts();
+    this.onContactAdded = this.onContactAdded.bind(this);
 
     this.invoiceForm = this.fb.group({
       number: ['', [Validators.required]],
@@ -83,6 +85,16 @@ export class InvoiceFormComponent implements OnInit {
         this.contacts = value;
       }
     );
+  }
+
+  showContactForm(type: string) {
+    this.contactFormVisible = !this.contactFormVisible;
+  }
+
+  onContactAdded(newContact: Contact) {
+    console.log(newContact);
+    this.getContacts();
+    this.contactFormVisible = false;
   }
 
   submit({ value, valid }: { value: Invoice, valid: boolean }): void {
